@@ -8,6 +8,7 @@ import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -96,11 +97,6 @@ class TimerFragment : Fragment() {
             viewModel.updateTimerState { copy(isRunning = false) }
         } else {
             if (!serviceBound) bindTimerService()
-            if (timerService?.isTimerRunning() == false && timerService?.getTimeLeft() == 0) {
-                timerService?.startTimer(state.timeLeft, settings.ambientSound)
-            } else {
-                timerService?.resumeTimer()
-            }
             timerService?.startTimer(state.timeLeft, settings.ambientSound)
             viewModel.updateTimerState { copy(isRunning = true) }
         }
@@ -175,7 +171,8 @@ class TimerFragment : Fragment() {
     }
 
     private fun updatePlayPauseButton(isRunning: Boolean) {
-        binding.btnPlayPause.setImageResource(
+        binding.btnPlayPause.icon = ContextCompat.getDrawable(
+            requireContext(),
             if (isRunning) R.drawable.ic_pause else R.drawable.ic_play
         )
     }
@@ -194,23 +191,31 @@ class TimerFragment : Fragment() {
     }
 
     private fun applyColors(primary: Int, accent: Int, surface: Int) {
+        val accentList = ColorStateList.valueOf(accent)
+        val surfaceList = ColorStateList.valueOf(surface)
+        val primaryList = ColorStateList.valueOf(primary)
+
         binding.apply {
             root.setBackgroundColor(Color.WHITE)
-            chipMode.backgroundTintList = ColorStateList.valueOf(surface)
+            chipMode.backgroundTintList = surfaceList
             tvMode.setTextColor(accent)
-            ivModeIcon.imageTintList = ColorStateList.valueOf(accent)
+            ivModeIcon.imageTintList = accentList
             tvMinutes.setTextColor(accent)
             tvSeconds.setTextColor(accent)
             tvColon.setTextColor(accent)
-            btnPlayPause.backgroundTintList = ColorStateList.valueOf(surface)
-            btnPlayPause.imageTintList = ColorStateList.valueOf(accent)
-            btnSkip.backgroundTintList = ColorStateList.valueOf(surface)
-            btnSkip.imageTintList = ColorStateList.valueOf(accent)
-            btnReset.backgroundTintList = ColorStateList.valueOf(surface)
-            btnReset.imageTintList = ColorStateList.valueOf(accent)
-            progressTimer.progressTintList = ColorStateList.valueOf(primary)
-            progressTimer.progressBackgroundTintList = ColorStateList.valueOf(surface)
-            chipMode.strokeColor = ColorStateList.valueOf(accent)
+
+            btnPlayPause.backgroundTintList = surfaceList
+            btnPlayPause.iconTint = accentList 
+
+            btnSkip.backgroundTintList = surfaceList
+            btnSkip.iconTint = accentList
+
+            btnReset.backgroundTintList = surfaceList
+            btnReset.iconTint = accentList
+
+            progressTimer.progressTintList = primaryList
+            progressTimer.progressBackgroundTintList = surfaceList
+            chipMode.setStrokeColor(accentList)
         }
     }
 
