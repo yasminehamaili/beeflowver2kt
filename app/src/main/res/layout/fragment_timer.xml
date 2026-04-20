@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Background Image (blurred, alpha) -->
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.35"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <!-- Mode Chip -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/chip_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="66dp"
+        app:cardCornerRadius="999dp"
+        app:cardBackgroundColor="@color/surface_color"
+        app:strokeColor="@color/accent_color"
+        app:strokeWidth="2dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iv_mode_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_brain"
+                app:tint="@color/accent_color"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tv_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Focus"
+                android:textColor="@color/accent_color"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/rubik_medium" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Active Task -->
+    <TextView
+        android:id="@+id/tv_active_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/accent_color"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/rubik_medium"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chip_mode"
+        tools:text="My Task"
+        tools:visibility="visible" />
+
+    <!-- Progress Ring -->
+    <ProgressBar
+        android:id="@+id/progress_timer"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="24dp"
+        android:max="100"
+        android:progress="0"
+        android:rotation="-90"
+        app:layout_constraintBottom_toTopOf="@id/tv_minutes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_active_task"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <!-- Timer Display: Minutes -->
+    <TextView
+        android:id="@+id/tv_minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50"
+        android:textColor="@color/accent_color"
+        android:textSize="96sp"
+        android:fontFamily="@font/roboto_flex_bold"
+        android:lineHeight="82dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progress_timer"
+        app:layout_constraintBottom_toTopOf="@id/tv_colon" />
+
+    <TextView
+        android:id="@+id/tv_colon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=":"
+        android:textColor="@color/accent_color"
+        android:textSize="72sp"
+        android:fontFamily="@font/roboto_flex_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_minutes"
+        app:layout_constraintBottom_toTopOf="@id/tv_seconds" />
+
+    <TextView
+        android:id="@+id/tv_seconds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00"
+        android:textColor="@color/accent_color"
+        android:textSize="96sp"
+        android:fontFamily="@font/roboto_flex_bold"
+        android:lineHeight="82dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_colon"
+        app:layout_constraintBottom_toTopOf="@id/controls_container" />
+
+    <!-- Controls -->
+    <LinearLayout
+        android:id="@+id/controls_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_seconds">
+
+        <!-- Reset Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_reset"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/surface_color"
+            app:icon="@drawable/ic_more_horiz"
+            app:iconTint="@color/accent_color"
+            app:iconSize="22dp"
+            app:iconPadding="0dp"
+            app:cornerRadius="12dp" />
+
+        <!-- Play/Pause Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlayPause"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:backgroundTint="@color/surface_color"
+            app:icon="@drawable/ic_play"
+            app:iconTint="@color/accent_color"
+            app:iconSize="36dp"
+            app:iconPadding="0dp"
+            app:cornerRadius="24dp" />
+
+        <!-- Skip Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_skip"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:backgroundTint="@color/surface_color"
+            app:icon="@drawable/ic_skip_forward"
+            app:iconTint="@color/accent_color"
+            app:iconSize="22dp"
+            app:iconPadding="0dp"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

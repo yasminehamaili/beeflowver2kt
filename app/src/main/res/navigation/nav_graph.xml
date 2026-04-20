@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/timerFragment">
+
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.pomodoro.app.ui.timer.TimerFragment"
+        android:label="Timer" />
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.pomodoro.app.ui.tasks.TasksFragment"
+        android:label="Tasks">
+        <action
+            android:id="@+id/action_tasks_to_timer"
+            app:destination="@id/timerFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.pomodoro.app.ui.stats.StatsFragment"
+        android:label="Stats" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.pomodoro.app.ui.settings.SettingsFragment"
+        android:label="Settings" />
+
+</navigation>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    android:layout_marginBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="top">
+
+        <!-- Status Icon -->
+        <ImageView
+            android:id="@+id/iv_status"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:src="@drawable/ic_circle"
+            android:contentDescription="Task status" />
+
+        <!-- Task Content -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_task_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/accent_color"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="Task name" />
+
+                <ImageButton
+                    android:id="@+id/btn_delete"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_delete"
+                    app:tint="#FD5B71"
+                    android:contentDescription="Delete task" />
+            </LinearLayout>
+
+            <!-- Done tag -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tag_done"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="Done"
+                android:textColor="#828282"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="#FFF0E8E8"
+                app:chipStrokeWidth="0dp" />
+
+            <!-- Active tag -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/tag_active"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:text="Active"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:chipBackgroundColor="@color/primary_color"
+                app:chipStrokeWidth="0dp" />
+
+            <!-- Session counter -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tv_session_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sessions: "
+                    android:textSize="13sp"
+                    android:textColor="@color/accent_color"
+                    android:alpha="0.6" />
+
+                <LinearLayout
+                    android:id="@+id/session_controls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_rounded_surface"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp">
+
+                    <ImageButton
+                        android:id="@+id/btn_dec_sessions"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_chevron_down"
+                        app:tint="@color/accent_color"
+                        android:contentDescription="Decrease sessions" />
+
+                    <TextView
+                        android:id="@+id/tv_session_count"
+                        android:layout_width="36dp"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/accent_color"
+                        android:textSize="18sp"
+                        android:fontFamily="@font/rubik_medium" />
+
+                    <ImageButton
+                        android:id="@+id/btn_inc_sessions"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@null"
+                        android:src="@drawable/ic_chevron_up"
+                        app:tint="@color/accent_color"
+                        android:contentDescription="Increase sessions" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Set Active button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_set_active"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:text="Set as Active Task"
+                android:textSize="13sp"
+                android:backgroundTint="@color/surface_color"
+                android:textColor="@color/accent_color"
+                app:cornerRadius="10dp"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

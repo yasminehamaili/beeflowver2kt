@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="@color/accent_color"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/rubik_medium"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Background Image Picker -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Timer Background"
+            android:textColor="@color/accent_color"
+            android:textSize="15sp"
+            android:fontFamily="@font/rubik_medium"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/bg_picker_card"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/surface_color"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            android:foreground="?attr/selectableItemBackground">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_bg_preview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    android:contentDescription="Background preview" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_image"
+                        app:tint="@color/accent_color"
+                        android:contentDescription="Pick image" />
+
+                    <TextView
+                        android:id="@+id/tv_bg_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Choose a photo to set as background"
+                        android:textColor="@color/accent_color"
+                        android:textSize="13sp"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_clear_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remove Background"
+            android:textColor="#FD5B71"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone"
+            app:backgroundTint="#FFFEE4E4"
+            app:cornerRadius="8dp" />
+
+        <!-- Dark Mode -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dark mode"
+                android:textColor="@color/accent_color"
+                android:textSize="15sp"
+                android:fontFamily="@font/rubik_regular" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_dark_mode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Ambient Sounds -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ambient Sound"
+            android:textColor="@color/accent_color"
+            android:textSize="15sp"
+            android:fontFamily="@font/rubik_medium"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+
+            <Button
+                android:id="@+id/btn_sound_none"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="None"
+                android:textSize="12sp"
+                android:layout_marginEnd="4dp"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btn_sound_forest"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Forest"
+                android:textSize="12sp"
+                android:layout_marginEnd="4dp"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btn_sound_cafe"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Café"
+                android:textSize="12sp"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/btn_sound_rain"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Rain"
+                android:textSize="12sp"
+                android:layout_marginEnd="4dp"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btn_sound_ocean"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Ocean"
+                android:textSize="12sp"
+                android:layout_marginEnd="4dp"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btn_sound_fire"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Fire"
+                android:textSize="12sp"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
+        <!-- Focus Duration -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Durations"
+            android:textColor="@color/accent_color"
+            android:textSize="15sp"
+            android:fontFamily="@font/rubik_medium"
+            android:layout_marginBottom="10dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/duration_focus_card"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/surface_color"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Focus length (min)"
+                    android:textColor="@color/accent_color"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_focus_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_down"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Decrease" />
+
+                <TextView
+                    android:id="@+id/tv_focus_duration"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:text="50"
+                    android:gravity="center"
+                    android:textColor="@color/accent_color"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/rubik_medium" />
+
+                <ImageButton
+                    android:id="@+id/btn_focus_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_up"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Increase" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/duration_short_card"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/surface_color"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Short break (min)"
+                    android:textColor="@color/accent_color"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_short_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_down"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Decrease" />
+
+                <TextView
+                    android:id="@+id/tv_short_break"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:text="5"
+                    android:gravity="center"
+                    android:textColor="@color/accent_color"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/rubik_medium" />
+
+                <ImageButton
+                    android:id="@+id/btn_short_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_up"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Increase" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/duration_long_card"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="@color/surface_color"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Long break (min)"
+                    android:textColor="@color/accent_color"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/btn_long_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_down"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Decrease" />
+
+                <TextView
+                    android:id="@+id/tv_long_break"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:text="15"
+                    android:gravity="center"
+                    android:textColor="@color/accent_color"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/rubik_medium" />
+
+                <ImageButton
+                    android:id="@+id/btn_long_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_chevron_up"
+                    app:tint="@color/accent_color"
+                    android:contentDescription="Increase" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Auto Resume -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Auto resume timer"
+                android:textColor="@color/accent_color"
+                android:textSize="15sp"
+                android:fontFamily="@font/rubik_regular" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_auto_resume"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Notifications -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Notifications"
+                android:textColor="@color/accent_color"
+                android:textSize="15sp"
+                android:fontFamily="@font/rubik_regular" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_notifications"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
