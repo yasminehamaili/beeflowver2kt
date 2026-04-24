@@ -203,16 +203,12 @@ class TimerFragment : Fragment() {
             tvMinutes.setTextColor(accent)
             tvSeconds.setTextColor(accent)
             tvColon.setTextColor(accent)
-
             btnPlayPause.backgroundTintList = surfaceList
-            btnPlayPause.iconTint = accentList 
-
+            btnPlayPause.iconTint = accentList
             btnSkip.backgroundTintList = surfaceList
             btnSkip.iconTint = accentList
-
             btnReset.backgroundTintList = surfaceList
             btnReset.iconTint = accentList
-
             progressTimer.progressTintList = primaryList
             progressTimer.progressBackgroundTintList = surfaceList
             chipMode.setStrokeColor(accentList)

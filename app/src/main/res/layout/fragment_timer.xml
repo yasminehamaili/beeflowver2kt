@@ -81,72 +81,82 @@
         tools:visibility="visible" />
 
     <!-- Progress Ring -->
+
+    <!-- Timer Display: Minutes -->
+
     <ProgressBar
         android:id="@+id/progress_timer"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="280dp"
-        android:layout_height="280dp"
+        android:layout_height="1dp"
         android:layout_marginTop="24dp"
         android:max="100"
         android:progress="0"
         android:rotation="-90"
         app:layout_constraintBottom_toTopOf="@id/tv_minutes"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_active_task"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <!-- Timer Display: Minutes -->
     <TextView
         android:id="@+id/tv_minutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_bold"
+        android:lineHeight="82dp"
         android:text="50"
         android:textColor="@color/accent_color"
         android:textSize="96sp"
-        android:fontFamily="@font/roboto_flex_bold"
-        android:lineHeight="82dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_colon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progress_timer"
-        app:layout_constraintBottom_toTopOf="@id/tv_colon" />
+        app:layout_constraintTop_toBottomOf="@id/progress_timer" />
 
     <TextView
         android:id="@+id/tv_colon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_flex_bold"
         android:text=":"
         android:textColor="@color/accent_color"
         android:textSize="72sp"
-        android:fontFamily="@font/roboto_flex_bold"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/tv_seconds"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_minutes"
-        app:layout_constraintBottom_toTopOf="@id/tv_seconds" />
+        app:layout_constraintTop_toBottomOf="@id/tv_minutes" />
 
+    <!-- Controls -->
     <TextView
         android:id="@+id/tv_seconds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/roboto_flex_bold"
+        android:lineHeight="82dp"
         android:text="00"
         android:textColor="@color/accent_color"
         android:textSize="96sp"
-        android:fontFamily="@font/roboto_flex_bold"
-        android:lineHeight="82dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/controls_container"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_colon"
-        app:layout_constraintBottom_toTopOf="@id/controls_container" />
+        app:layout_constraintTop_toBottomOf="@id/tv_colon" />
 
-    <!-- Controls -->
     <LinearLayout
         android:id="@+id/controls_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -155,40 +165,42 @@
         <!-- Reset Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_reset"
-            android:layout_width="44dp"
+            android:layout_width="34dp"
             android:layout_height="44dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/surface_color"
+            app:cornerRadius="12dp"
             app:icon="@drawable/ic_more_horiz"
-            app:iconTint="@color/accent_color"
-            app:iconSize="22dp"
+            app:iconGravity="top"
             app:iconPadding="0dp"
-            app:cornerRadius="12dp" />
+            app:iconSize="22dp"
+            app:iconTint="@color/accent_color" />
 
         <!-- Play/Pause Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPlayPause"
-            android:layout_width="80dp"
+            android:layout_width="70dp"
             android:layout_height="80dp"
             android:backgroundTint="@color/surface_color"
+            app:cornerRadius="24dp"
             app:icon="@drawable/ic_play"
-            app:iconTint="@color/accent_color"
+            app:iconPadding="20dp"
             app:iconSize="36dp"
-            app:iconPadding="0dp"
-            app:cornerRadius="24dp" />
+            app:iconTint="@color/accent_color" />
 
         <!-- Skip Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_skip"
-            android:layout_width="44dp"
+            android:layout_width="34dp"
             android:layout_height="44dp"
             android:layout_marginStart="16dp"
             android:backgroundTint="@color/surface_color"
+            app:cornerRadius="12dp"
             app:icon="@drawable/ic_skip_forward"
-            app:iconTint="@color/accent_color"
-            app:iconSize="22dp"
+            app:iconGravity="top"
             app:iconPadding="0dp"
-            app:cornerRadius="12dp" />
+            app:iconSize="22dp"
+            app:iconTint="@color/accent_color" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

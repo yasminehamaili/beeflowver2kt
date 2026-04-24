@@ -28,11 +28,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/rubik_medium"
             android:text="Timer Background"
             android:textColor="@color/accent_color"
             android:textSize="15sp"
-            android:fontFamily="@font/rubik_medium"
-            android:layout_marginBottom="8dp" />
+            android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/bg_picker_card"
@@ -229,9 +230,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/rubik_medium"
                     android:text="Focus length (min)"
                     android:textColor="@color/accent_color"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/btn_focus_minus"
@@ -286,7 +289,8 @@
                     android:layout_weight="1"
                     android:text="Short break (min)"
                     android:textColor="@color/accent_color"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/btn_short_minus"
@@ -341,7 +345,8 @@
                     android:layout_weight="1"
                     android:text="Long break (min)"
                     android:textColor="@color/accent_color"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
                 <ImageButton
                     android:id="@+id/btn_long_minus"

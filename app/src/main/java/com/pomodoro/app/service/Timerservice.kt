@@ -170,7 +170,7 @@ class TimerService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 CHANNEL_ID,
-                "Pomodoro Timer",
+                "BeeFlow Session",
                 NotificationManager.IMPORTANCE_LOW
             ).apply {
                 description = "Shows timer progress"

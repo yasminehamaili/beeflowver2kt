@@ -2,6 +2,6 @@
 <font-family xmlns:app="http://schemas.android.com/apk/res-auto">
     <font
         app:fontStyle="normal"
-        app:fontWeight="700"
+        app:fontWeight="1000"
         app:font="@font/roboto_flex_variable" />
 </font-family>
