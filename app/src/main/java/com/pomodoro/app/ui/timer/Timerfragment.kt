@@ -27,10 +27,28 @@ class TimerFragment : Fragment() {
     private var timerService: TimerService? = null
     private var serviceBound = false
 
+    // ── Informer le Service si l'app est visible ou en background ────────────
+
+    override fun onResume() {
+        super.onResume()
+        timerService?.isAppInForeground = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        timerService?.isAppInForeground = false
+    }
+
+    // ── Service connection ───────────────────────────────────────────────────
+
     private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
             timerService = (binder as TimerService.TimerBinder).getService()
             serviceBound = true
+
+            // Refléter la visibilité actuelle immédiatement
+            timerService?.isAppInForeground = isResumed
+
             timerService?.setCallbacks(
                 onTick = { timeLeft ->
                     activity?.runOnUiThread {
@@ -44,10 +62,18 @@ class TimerFragment : Fragment() {
             )
             syncServiceState()
         }
-        override fun onServiceDisconnected(name: ComponentName?) { serviceBound = false }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            serviceBound = false
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    // ── Fragment lifecycle ───────────────────────────────────────────────────
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentTimerBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -60,6 +86,8 @@ class TimerFragment : Fragment() {
         setupObservers()
         setupClickListeners()
     }
+
+    // ── Observers ────────────────────────────────────────────────────────────
 
     private fun setupObservers() {
         viewModel.timerState.observe(viewLifecycleOwner) { state ->
@@ -82,6 +110,8 @@ class TimerFragment : Fragment() {
         }
     }
 
+    // ── Click listeners ──────────────────────────────────────────────────────
+
     private fun setupClickListeners() {
         binding.btnPlayPause.setOnClickListener { togglePlayPause() }
         binding.btnSkip.setOnClickListener { skipToNext() }
@@ -89,8 +119,8 @@ class TimerFragment : Fragment() {
     }
 
     private fun togglePlayPause() {
-        val state = viewModel.timerState.value ?: return
-        val settings = viewModel.settings.value ?: return
+        val state    = viewModel.timerState.value ?: return
+        val settings = viewModel.settings.value   ?: return
 
         if (state.isRunning) {
             timerService?.pauseTimer()
@@ -106,20 +136,23 @@ class TimerFragment : Fragment() {
         timerService?.stopTimer()
         viewModel.updateTimerState { copy(isRunning = false) }
         val state = viewModel.timerState.value ?: return
+
         val newMode: TimerMode
         val newCycle: Int
 
         if (state.mode == TimerMode.FOCUS) {
             val cycle = state.cycleCount + 1
             newCycle = cycle
-            newMode = if (cycle % 4 == 0) TimerMode.LONG_BREAK else TimerMode.SHORT_BREAK
+            newMode  = if (cycle % 4 == 0) TimerMode.LONG_BREAK else TimerMode.SHORT_BREAK
         } else {
-            newMode = TimerMode.FOCUS
+            newMode  = TimerMode.FOCUS
             newCycle = state.cycleCount
         }
 
         val newTime = viewModel.getDuration(newMode)
-        viewModel.updateTimerState { copy(mode = newMode, timeLeft = newTime, cycleCount = newCycle, isRunning = false) }
+        viewModel.updateTimerState {
+            copy(mode = newMode, timeLeft = newTime, cycleCount = newCycle, isRunning = false)
+        }
 
         val settings = viewModel.settings.value ?: return
         if (settings.autoStartNext) {
@@ -135,19 +168,45 @@ class TimerFragment : Fragment() {
         viewModel.updateTimerState { copy(timeLeft = time, isRunning = false) }
     }
 
-    private fun onTimerComplete() {
-        val state = viewModel.timerState.value ?: return
-        val settings = viewModel.settings.value ?: return
+    // ── Fin de session ────────────────────────────────────────────────────────
 
-        if (state.mode == TimerMode.FOCUS) {
+    private fun onTimerComplete() {
+        val state    = viewModel.timerState.value ?: return
+        val settings = viewModel.settings.value   ?: return
+        val isFocus  = state.mode == TimerMode.FOCUS
+
+        if (isFocus) {
             val taskName = viewModel.activeTask.value?.name ?: "No Task"
             viewModel.addSession(taskName, settings.focusDuration)
             viewModel.activeTask.value?.let { task ->
                 viewModel.updateTaskSessions(task, task.sessions + 1)
             }
         }
-        skipToNext()
+
+        // Afficher le popup à la fin de chaque session
+        showBeeCompleteDialog(isFocus)
     }
+
+    /**
+     * Affiche le dialog 🐝 à la fin de chaque session (focus ET pause).
+     * L'utilisateur doit appuyer pour arrêter la vibration et passer à la suite.
+     */
+    private fun showBeeCompleteDialog(isFocusSession: Boolean) {
+        timerService?.currentIsFocusSession = isFocusSession
+
+        val colors = viewModel.themeColors.value
+        val dialog = BeeCompleteDialog.newInstance(
+            primary        = colors?.primary ?: 0xFFE7992C.toInt(),
+            accent         = colors?.accent  ?: 0xFF483320.toInt(),
+            surface        = colors?.surface ?: 0xFFFEE49A.toInt(),
+            isFocusSession = isFocusSession
+        )
+        dialog.timerService = timerService
+        dialog.onDismissed  = { skipToNext() }
+        dialog.show(childFragmentManager, "bee_complete_dialog")
+    }
+
+    // ── UI helpers ───────────────────────────────────────────────────────────
 
     private fun updateTimerDisplay(seconds: Int) {
         val mins = seconds / 60
@@ -155,16 +214,16 @@ class TimerFragment : Fragment() {
         binding.tvMinutes.text = String.format("%02d", mins)
         binding.tvSeconds.text = String.format("%02d", secs)
 
-        val total = viewModel.getDuration(viewModel.timerState.value?.mode ?: TimerMode.FOCUS)
+        val total    = viewModel.getDuration(viewModel.timerState.value?.mode ?: TimerMode.FOCUS)
         val progress = if (total > 0) ((total - seconds).toFloat() / total * 100).toInt() else 0
         binding.progressTimer.progress = progress
     }
 
     private fun updateModeChip(mode: TimerMode) {
         val (text, icon) = when (mode) {
-            TimerMode.FOCUS -> "Focus" to R.drawable.ic_brain
-            TimerMode.SHORT_BREAK -> "Short Break" to R.drawable.ic_coffee
-            TimerMode.LONG_BREAK -> "Long Break" to R.drawable.ic_coffee
+            TimerMode.FOCUS       -> "Focus"       to R.drawable.ic_brain
+            TimerMode.SHORT_BREAK -> "Short Break"  to R.drawable.ic_coffee
+            TimerMode.LONG_BREAK  -> "Long Break"   to R.drawable.ic_coffee
         }
         binding.tvMode.text = text
         binding.ivModeIcon.setImageResource(icon)
@@ -191,25 +250,25 @@ class TimerFragment : Fragment() {
     }
 
     private fun applyColors(primary: Int, accent: Int, surface: Int) {
-        val accentList = ColorStateList.valueOf(accent)
+        val accentList  = ColorStateList.valueOf(accent)
         val surfaceList = ColorStateList.valueOf(surface)
         val primaryList = ColorStateList.valueOf(primary)
 
         binding.apply {
             root.setBackgroundColor(Color.WHITE)
-            chipMode.backgroundTintList = surfaceList
+            chipMode.backgroundTintList              = surfaceList
             tvMode.setTextColor(accent)
-            ivModeIcon.imageTintList = accentList
+            ivModeIcon.imageTintList                 = accentList
             tvMinutes.setTextColor(accent)
             tvSeconds.setTextColor(accent)
             tvColon.setTextColor(accent)
-            btnPlayPause.backgroundTintList = surfaceList
-            btnPlayPause.iconTint = accentList
-            btnSkip.backgroundTintList = surfaceList
-            btnSkip.iconTint = accentList
-            btnReset.backgroundTintList = surfaceList
-            btnReset.iconTint = accentList
-            progressTimer.progressTintList = primaryList
+            btnPlayPause.backgroundTintList          = surfaceList
+            btnPlayPause.iconTint                    = accentList
+            btnSkip.backgroundTintList               = surfaceList
+            btnSkip.iconTint                         = accentList
+            btnReset.backgroundTintList              = surfaceList
+            btnReset.iconTint                        = accentList
+            progressTimer.progressTintList           = primaryList
             progressTimer.progressBackgroundTintList = surfaceList
             chipMode.setStrokeColor(accentList)
         }

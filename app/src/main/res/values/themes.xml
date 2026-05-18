@@ -27,6 +27,15 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <!-- Thème du Splash : fond blanc, pas d'ActionBar, barre de statut blanche -->
+    <style name="Theme.Pomodoro.Splash" parent="Theme.Pomodoro">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
     <style name="BottomNavStyle" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/bottom_nav_color</item>
         <item name="itemTextColor">@color/bottom_nav_color</item>
