@@ -12,17 +12,11 @@ import androidx.fragment.app.DialogFragment
 import com.pomodoro.app.databinding.DialogBeeCompleteBinding
 import com.pomodoro.app.service.TimerService
 
-/**
- * Dialog immersif à la fin de chaque session (focus ET pause).
- * La vibration alarme tourne en boucle INFINIE dans le TimerService.
- * Elle ne s'arrête QUE quand l'utilisateur appuie sur le bouton.
- */
 class BeeCompleteDialog : DialogFragment() {
 
     private var _binding: DialogBeeCompleteBinding? = null
     private val binding get() = _binding!!
 
-    /** Référence au service pour stopper la vibration au bon moment */
     var timerService: TimerService? = null
     var onDismissed: (() -> Unit)? = null
 
@@ -51,8 +45,6 @@ class BeeCompleteDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Empêcher la fermeture par tap extérieur ou bouton back
-        // L'utilisateur DOIT appuyer sur le bouton pour arrêter l'alarme
         isCancelable = false
     }
 
@@ -99,7 +91,6 @@ class BeeCompleteDialog : DialogFragment() {
             binding.tvMessage.text = "Super boulot ! Ta session focus est terminée.\nC\u2019est l\u2019heure de souffler \uD83C\uDF6F"
             binding.btnAction.text = "Prendre une pause \u2615"
         } else {
-            binding.tvTitle.text   = "Let\u2019s bezzzzz \uD83D\uDC1D"
             binding.tvMessage.text = "Pause terminée, petite abeille !\nPrête à revoler au travail ? \uD83D\uDCAA"
             binding.btnAction.text = "Retour au focus \uD83D\uDCA1"
         }
@@ -108,7 +99,6 @@ class BeeCompleteDialog : DialogFragment() {
     private fun applyColors(primary: Int, accent: Int, surface: Int) {
         binding.apply {
             cardContent.backgroundTintList = ColorStateList.valueOf(surface)
-            tvBeeEmoji.setTextColor(accent)
             tvTitle.setTextColor(accent)
             tvMessage.setTextColor(accent)
             divider.setBackgroundColor(primary)
@@ -117,7 +107,6 @@ class BeeCompleteDialog : DialogFragment() {
         }
     }
 
-    /** Animation pulse + rotation infinie sur l'emoji 🐝 */
     private fun startBuzzAnimation() {
         val v = binding.tvBeeEmoji
 

@@ -11,10 +11,6 @@ import androidx.core.app.NotificationCompat
 import com.pomodoro.app.R
 import com.pomodoro.app.ui.MainActivity
 
-/**
- * Gère les alertes de fin de session en background.
- * Envoie une notification quand le timer finit alors que l'app n'est pas visible.
- */
 object BeeAlertManager {
 
     const val CHANNEL_COMPLETE_ID      = "pomodoro_complete_channel"

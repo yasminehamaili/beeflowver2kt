@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <!-- Background Image (blurred, alpha) -->
+
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 
-    <!-- Mode Chip -->
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/chip_mode"
         android:layout_width="wrap_content"
@@ -63,7 +63,7 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Active Task -->
+
     <TextView
         android:id="@+id/tv_active_task"
         android:layout_width="wrap_content"
@@ -80,9 +80,6 @@
         tools:text="My Task"
         tools:visibility="visible" />
 
-    <!-- Progress Ring -->
-
-    <!-- Timer Display: Minutes -->
 
     <ProgressBar
         android:id="@+id/progress_timer"
@@ -93,6 +90,7 @@
         android:max="100"
         android:progress="0"
         android:rotation="-90"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/tv_minutes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

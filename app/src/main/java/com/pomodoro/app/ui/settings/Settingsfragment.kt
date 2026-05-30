@@ -52,7 +52,7 @@ class SettingsFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.settings.observe(viewLifecycleOwner) { settings ->
-            binding.switchDarkMode.isChecked = settings.darkMode
+
             binding.switchAutoResume.isChecked = settings.autoStartNext
             binding.switchNotifications.isChecked = settings.notifications
             binding.tvFocusDuration.text = "${settings.focusDuration}"
@@ -79,11 +79,6 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.switchDarkMode.setOnCheckedChangeListener { _, checked ->
-            viewModel.updateSettings { copy(darkMode = checked) }
-            requireActivity().recreate()
-        }
-
         binding.switchAutoResume.setOnCheckedChangeListener { _, checked ->
             viewModel.updateSettings { copy(autoStartNext = checked) }
         }
@@ -198,7 +193,7 @@ class SettingsFragment : Fragment() {
         val surfaceList = android.content.res.ColorStateList.valueOf(surface)
         binding.apply {
             tvTitle.setTextColor(accent)
-            switchDarkMode.thumbTintList = accentList
+
             switchAutoResume.thumbTintList = accentList
             switchNotifications.thumbTintList = accentList
             btnFocusPlus.imageTintList = accentList

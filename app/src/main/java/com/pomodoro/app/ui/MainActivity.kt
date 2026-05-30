@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Observe theme colors and apply dynamically
         viewModel.themeColors.observe(this) { colors ->
             applyThemeColors(colors)
         }

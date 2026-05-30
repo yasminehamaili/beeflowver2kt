@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pomodoro Timer</string>
+    <string name="timer">مؤقت</string>
+    <string name="tasks">المهام</string>
+    <string name="stats">الاحصائيات</string>
+    <string name="settings">الاعدادات</string>
+    <string name="focus">تركيز</string>
+    <string name="short_break">استراحة قصيرة</string>
+    <string name="long_break">استراحة طويلة</string>
+    <string name="add_task">اضف مهمة</string>
+    <string name="set_active">تعيين كمهمة نشطة</string>
+    <string name="active_task">مهمة نشطة</string>
+    <string name="done">منتهي</string>
+    <string name="timer_complete">اكتمل الموقّت!</string>
+    <string name="time_for_break">حان الوقت للاستراحة!</string>
+    <string name="time_to_focus">حان الوقت للتركيز!</string>
+    <string name="channel_name">مؤقت بومودورو</string>
+    <string name="channel_desc">عرض التقدم الموقت</string>
+    <string name="colors_extracted">الألوان المستخرجة من الصورة!</string>
+    <string name="pick_bg">اختر صورة لتعيينها كخلفية</string>
+    <string name="change_bg">انقر لتغيير الخلفية</string>
+    <string name="permission_needed">الإذن اللازم لاختيار الصور</string>
+    <string name="image_load_failed">فشل تحميل الصورة</string>
+</resources>
